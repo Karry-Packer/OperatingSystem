@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class fcfs {
+    
+    public static void main(String[] args) { 
+        
+        int n;
+        
+        Scanner sc = new Scanner(System.in);
+    
+        System.out.print("Enter the number of Process: "); 
+       
+        n = sc.nextInt();
+        
+        int p[] = new int[n];
+        
+        int waiting_time[]= new int[n]; 
+        int turnaround_time[]= new int[n];
+         int completion_time[]= new int[n];
+         int burst_time[] = new int[n];
+         int start_time = 0;
+         int arrival_time[] = new int[n]; 
+
+        
+         System.out.println("Process Arrival Burst :");
+         for(int i=0; i<n; i++){
+         p[i]=sc.nextInt();
+         arrival_time[i] = sc.nextInt();
+          
+         
+         burst_time[i] = sc.nextInt();
+             }
+        float avg_waiting_time = 0, avg_turnaround_time = 0;
+             
+    
+        for(int i = 0; i < n; i++) { 
+
+            start_time = start_time + burst_time[i];
+            completion_time[i]  = start_time; 
+            turnaround_time[i] = completion_time[i] - arrival_time[i];
+            waiting_time[i] = turnaround_time[i] - burst_time[i];
+            
+            // calculate the average waiting and turnaround times
+            avg_waiting_time += waiting_time[i];
+            avg_turnaround_time += turnaround_time[i];  
+    }
+    // calculate the average waiting and turnaround times
+    avg_waiting_time /= n;
+    avg_turnaround_time /= n;
+
+    // print the result
+    System.out.println("First Come First Server ");
+    System.out.println("Process\tArrival Time\tBurst Time\tCompletion Time  \tTurnaround Time  \tWaiting Time\n"); 
+    for(int i = 0; i < n; i++) {
+        System.out.println((i+1) + "\t\t" + arrival_time[i] + "\t\t" + burst_time[i] + "\t\t" + completion_time[i] + "\t\t" + turnaround_time[i] + "\t\t\t" + waiting_time[i] );
+    }
+    System.out.println("Average waiting time: " + avg_waiting_time);
+    System.out.println("Average turnaround time: " + avg_turnaround_time);
+    System.out.println("Throughput : "+ avg_turnaround_time/n);
+    }
+   
+    
+}
